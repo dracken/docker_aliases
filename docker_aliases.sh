@@ -106,3 +106,4 @@ case "$response" in
 esac
 '
 alias docker-run-prev-container='prev_container_id="$(docker ps -aq | head -n1)" && docker commit "$prev_container_id" "prev_container/$prev_container_id" && docker run -it --entrypoint=bash "prev_container/$prev_container_id"'
+alias docker-ip='docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{end}}" $*'
