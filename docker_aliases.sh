@@ -73,10 +73,15 @@ On_IPurple='\033[10;95m'  # Purple
 On_ICyan='\033[0;106m'    # Cyan
 On_IWhite='\033[0;107m'   # White
 
+# Docker Aliases
+alias docker-ip='docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" $*'
+alias docker-run-prev-container='prev_container_id="$(docker ps -aq | head -n1)" && docker commit "$prev_container_id" "prev_container/$prev_container_id" && docker run -it --entrypoint=bash "prev_container/$prev_container_id"'
+alias docker-img-none-rem='docker rmi -f $(docker images -a | grep '\''none'\'' | awk '\''{printf $3 "n"}'\'')'
 alias img='docker images -a'
 alias psa='docker ps -a'
 alias vol='docker volume ls'
 alias docker_nuke='
+echo -e ${Red}WARNING!!!!${ColorOff} This will delete all current Docker containers, images and volumes.;
 read -r -p $"Are you sure?$ [y/N]" response
 case "$response" in
     [yY][eE][sS]|[yY])
