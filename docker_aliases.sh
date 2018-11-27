@@ -74,12 +74,12 @@ On_ICyan='\033[0;106m'    # Cyan
 On_IWhite='\033[0;107m'   # White
 
 # Docker Aliases
-alias docker-ip='docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" $*'
 alias docker-run-prev-container='prev_container_id="$(docker ps -aq | head -n1)" && docker commit "$prev_container_id" "prev_container/$prev_container_id" && docker run -it --entrypoint=bash "prev_container/$prev_container_id"'
-alias docker-img-none-rem='docker rmi -f $(docker images -a | grep '\''none'\'' | awk '\''{printf $3 "n"}'\'')'
-alias img='docker images -a'
-alias psa='docker ps -a'
-alias vol='docker volume ls'
+alias docker-img-none-rem='docker rmi -f $(docker images -a | grep '"'"'none'"'"' | awk '"'"'{printf $3 "\n"}'"'"')'
+alias psa='echo -e ${Green}Current Docker Containers${ColorOff};docker ps -a'
+alias img='echo -e ${Green}Current Docker Images${ColorOff};docker images -a'
+alias vol='echo -e ${Green}Current Docker Volumes${ColorOff};docker volume ls'
+alias net='echo -e ${Green}Current Docker Networks${ColorOff};docker network ls'
 alias docker_nuke='
 echo -e ${Red}WARNING!!!!${ColorOff} This will delete all current Docker containers, images and volumes.;
 read -r -p $"Are you sure?$ [y/N]" response
@@ -110,5 +110,20 @@ case "$response" in
         ;;
 esac
 '
-alias docker-run-prev-container='prev_container_id="$(docker ps -aq | head -n1)" && docker commit "$prev_container_id" "prev_container/$prev_container_id" && docker run -it --entrypoint=bash "prev_container/$prev_container_id"'
-alias docker-ip='docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{end}}" $*'
+
+function docker-ip() {
+echo -e "${Yellow}Which container?${ColorOff}"
+echo "All"
+docker inspect -f "{{.Name}}" $(docker ps -aq) |  sed 's/^.//'
+read -r response
+case "$response" in
+    [aA][lL][lL]|[aA])
+        paste <(echo -e ${Cyan}Container${ColorOff};docker inspect -f "{{.Name}}" $(docker ps -aq) |  sed 's/^.//' ) \
+                <(echo -e ${IPurple}Container IP${ColorOff};docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" $(docker ps -aq))
+        ;;
+    [0-9])
+        paste <(echo -e ${Cyan}Container${ColorOff};docker inspect -f "{{.Name}}" "$response" |  sed 's/^.//' ) \
+                <(echo -e ${IPurple}Container IP${ColorOff};docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" "$response" )
+        ;;
+esac
+}
