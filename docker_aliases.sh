@@ -103,6 +103,30 @@ case "$response" in
         echo -e ${Red}Deleting Volumes${ColorOff}
         docker volume rm $(docker volume ls -q)
 
+        echo -e ${Red}                               ________________
+        echo -e ${Red}                          ____/ (  (    )   )  \___
+        echo -e ${Red}                         /( (  (  )   _    ))  )   )\
+        echo -e ${Red}                       ((     (   )(    )  )   (   )  )
+        echo -e ${Red}                     ((/  ( _(   )   (   _) ) (  () )  )
+        echo -e ${Red}                    ( (  ( (_)   ((    (   )  .((_ ) .  )_
+        echo -e ${Red}                   ( (  )    (      (  )    )   ) . ) (   )
+        echo -e ${Red}                  (  (   (  (   ) (  _  ( _) ).  ) . ) ) ( )
+        echo -e ${Red}                  ( (  (   ) (  )   (  ))     ) _)(   )  )  )
+        echo -e ${Red}                 ( (  ( \ ) (    (_  ( ) ( )  )   ) )  )) ( )
+        echo -e ${Red}                  (  (   (  (   (_ ( ) ( _    )  ) (  )  )   )
+        echo -e ${Red}                 ( (  ( (  (  )     (_  )  ) )  _)   ) _( ( )
+        echo -e ${Red}                  ((  (   )(    (     _    )   _) _(_ (  (_ )
+        echo -e ${Red}                   (_((__(_(__(( ( ( |  ) ) ) )_))__))_)___)
+        echo -e ${Red}                   ((__)        \\||lll|l||///          \_))
+        echo -e ${Red}                            (   /(/ (  )  ) )\   )
+        echo -e ${Red}                          (    ( ( ( | | ) ) )\   )
+        echo -e ${Red}                           (   /(| / ( )) ) ) )) )
+        echo -e ${Red}                         (     ( ((((_(|)_)))))     )
+        echo -e ${Red}                          (      ||\(|(|)|/||     )
+        echo -e ${Red}                        (        |(||(||)||||        )
+        echo -e ${Red}                          (     //|/l|||)|\\ \     )
+        echo -e ${Red}                        (/ / //  /|//||||\\  \ \  \ _)
+        echo -e ${Red}-------------------------------------------------------------------------------${ColorOff}
         echo -e ${Red}Removal of ${IRed}All${ColorOff} Containers Complete${ColorOff}
         ;;
     [nN])
